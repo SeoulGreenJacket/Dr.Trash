@@ -1,17 +1,25 @@
-version: "3.3"
+version: '3.3'
 
 services:
   database:
     environment:
-      - POSTGRES_PASSWORD=password
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: dr_trash
+      APPLICATION_SCHEMA: application
+      APPLICATION_USERNAME: application
+      APPLICATION_PASSWORD: password
+      DEVELOPER_USERNAME: developer
+      DEVELOPER_PASSWORD: password
     ports:
-      - "5000:5432"
+      - '5432:5432'
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - /etc/localtime:/etc/localtime:ro
+      - db-data:/var/lib/postgresql/data
     build:
       context: ./Dr.Trash-DB
     networks:
       - default
 
 volumes:
-  db_data:
+  db-data:

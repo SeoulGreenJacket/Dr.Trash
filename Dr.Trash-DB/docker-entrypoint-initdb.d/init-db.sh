@@ -2,13 +2,9 @@
 set -e
 
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
-    CREATE USER backend;
-    CREATE DATABASE dr_trash;
-    GRANT ALL PRIVILEGES ON DATABASE dr_trash TO backend;
+    CREATE SCHEMA $APPLICATION_SCHEMA AUTHORIZATION postgres;
 
-    USE DATABASE dr_trash;
-
-    CREATE TABLE user (
+    CREATE TABLE $APPLICATION_SCHEMA.user (
         id SERIAL,
         name VARCHAR(32) NOT NULL,
         image_uri VARCHAR(256) NOT NULL,
@@ -17,7 +13,7 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
         PRIMARY KEY (id)
     );
 
-    CREATE TABLE oauth (
+    CREATE TABLE $APPLICATION_SCHEMA.oauth (
         user_id INTEGER NOT NULL,
         provider VARCHAR(32) NOT NULL,
         id VARCHAR(128) NOT NULL,
@@ -25,7 +21,7 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
         PRIMARY KEY (provider, id)
     );
 
-    CREATE TABLE trashcan (
+    CREATE TABLE $APPLICATION_SCHEMA.trashcan (
         id SERIAL,
         manager_id INTEGER,
         name VARCHAR(32),
@@ -35,10 +31,10 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
         created_at TIMESTAMP NOT NULL DEFAULT NOW(),
 
         PRIMARY KEY (id),
-        FOREIGN KEY (manager_id) REFERENCES user(id)
+        FOREIGN KEY (manager_id) REFERENCES $APPLICATION_SCHEMA.user(id)
     );
 
-    CREATE TABLE article (
+    CREATE TABLE $APPLICATION_SCHEMA.article (
         id SERIAL,
         author_id INTEGER NOT NULL,
         title VARCHAR(32) NOT NULL,
@@ -50,10 +46,10 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
         updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
 
         PRIMARY KEY (id),
-        FOREIGN KEY (author_id) REFERENCES user(id)
+        FOREIGN KEY (author_id) REFERENCES $APPLICATION_SCHEMA.user(id)
     );
 
-    CREATE TABLE comment (
+    CREATE TABLE $APPLICATION_SCHEMA.comment (
         id SERIAL,
         author_id INTEGER NOT NULL,
         article_id INTEGER NOT NULL,
@@ -64,11 +60,11 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
         hate_count INTEGER NOT NULL DEFAULT 0,
 
         PRIMARY KEY (id),
-        FOREIGN KEY (author_id) REFERENCES user(id),
-        FOREIGN KEY (article_id) REFERENCES article(id)
+        FOREIGN KEY (author_id) REFERENCES $APPLICATION_SCHEMA.user(id),
+        FOREIGN KEY (article_id) REFERENCES $APPLICATION_SCHEMA.article(id)
     );
 
-    CREATE TABLE achievement (
+    CREATE TABLE $APPLICATION_SCHEMA.achievement (
         id SERIAL,
         name VARCHAR(32) NOT NULL,
         description VARCHAR(256) NOT NULL,
@@ -77,14 +73,25 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
         PRIMARY KEY (id)
     );
 
-    CREATE TABLE achiever (
+    CREATE TABLE $APPLICATION_SCHEMA.achiever (
         user_id INTEGER NOT NULL,
         achievement_id INTEGER NOT NULL,
         achieved_at TIMESTAMP NOT NULL DEFAULT NOW(),
 
         PRIMARY KEY (user_id, achievement_id),
-        FOREIGN KEY (user_id) REFERENCES user(id),
-        FOREIGN KEY (achievement_id) REFERENCES achievement(id)
+        FOREIGN KEY (user_id) REFERENCES $APPLICATION_SCHEMA.user(id),
+        FOREIGN KEY (achievement_id) REFERENCES $APPLICATION_SCHEMA.achievement(id)
     );
 
+    CREATE USER $APPLICATION_USERNAME PASSWORD '$APPLICATION_PASSWORD';
+
+    GRANT USAGE ON SCHEMA $APPLICATION_SCHEMA TO $APPLICATION_USERNAME;
+    GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA $APPLICATION_SCHEMA TO $APPLICATION_USERNAME;
+    GRANT USAGE, SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA $APPLICATION_SCHEMA TO $APPLICATION_USERNAME;
+
+    CREATE ROLE $DEVELOPER_USERNAME WITH LOGIN PASSWORD '$DEVELOPER_PASSWORD';
+
+    GRANT ALL PRIVILEGES ON SCHEMA $APPLICATION_SCHEMA TO $DEVELOPER_USERNAME;
+    GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA $APPLICATION_SCHEMA TO $DEVELOPER_USERNAME;
+    GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA $APPLICATION_SCHEMA TO $DEVELOPER_USERNAME;
 EOSQL
