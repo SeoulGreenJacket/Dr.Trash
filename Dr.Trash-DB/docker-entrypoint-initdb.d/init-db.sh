@@ -7,14 +7,14 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
     CREATE TABLE $APPLICATION_SCHEMA.user (
         id SERIAL,
         name VARCHAR(32) NOT NULL,
-        image_uri VARCHAR(256) NOT NULL,
+        imageUri VARCHAR(256) NOT NULL,
         point INTEGER NOT NULL,
 
         PRIMARY KEY (id)
     );
 
     CREATE TABLE $APPLICATION_SCHEMA.oauth (
-        user_id INTEGER NOT NULL,
+        userId INTEGER NOT NULL,
         provider VARCHAR(32) NOT NULL,
         id VARCHAR(128) NOT NULL,
 
@@ -23,64 +23,64 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
 
     CREATE TABLE $APPLICATION_SCHEMA.trashcan (
         id SERIAL,
-        manager_id INTEGER,
+        managerId INTEGER,
         name VARCHAR(32),
         description VARCHAR(256),
         latitude FLOAT,
         longitude FLOAT,
-        created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+        createdAt TIMESTAMP NOT NULL DEFAULT NOW(),
 
         PRIMARY KEY (id),
-        FOREIGN KEY (manager_id) REFERENCES $APPLICATION_SCHEMA.user(id)
+        FOREIGN KEY (managerId) REFERENCES $APPLICATION_SCHEMA.user(id)
     );
 
     CREATE TABLE $APPLICATION_SCHEMA.article (
         id SERIAL,
-        author_id INTEGER NOT NULL,
+        authorId INTEGER NOT NULL,
         title VARCHAR(32) NOT NULL,
         content VARCHAR(1024) NOT NULL,
-        like_count INTEGER NOT NULL DEFAULT 0,
-        view_count INTEGER NOT NULL DEFAULT 0,
-        hate_count INTEGER NOT NULL DEFAULT 0,
-        created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-        updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
+        likeCount INTEGER NOT NULL DEFAULT 0,
+        viewCount INTEGER NOT NULL DEFAULT 0,
+        hateCount INTEGER NOT NULL DEFAULT 0,
+        createdAt TIMESTAMP NOT NULL DEFAULT NOW(),
+        updatedAt TIMESTAMP NOT NULL DEFAULT NOW(),
 
         PRIMARY KEY (id),
-        FOREIGN KEY (author_id) REFERENCES $APPLICATION_SCHEMA.user(id)
+        FOREIGN KEY (authorId) REFERENCES $APPLICATION_SCHEMA.user(id)
     );
 
     CREATE TABLE $APPLICATION_SCHEMA.comment (
         id SERIAL,
-        author_id INTEGER NOT NULL,
-        article_id INTEGER NOT NULL,
+        authorId INTEGER NOT NULL,
+        articleId INTEGER NOT NULL,
         content VARCHAR(1024) NOT NULL,
-        created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-        updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
-        like_count INTEGER NOT NULL DEFAULT 0,
-        hate_count INTEGER NOT NULL DEFAULT 0,
+        createdAt TIMESTAMP NOT NULL DEFAULT NOW(),
+        updatedAt TIMESTAMP NOT NULL DEFAULT NOW(),
+        likeCount INTEGER NOT NULL DEFAULT 0,
+        hateCount INTEGER NOT NULL DEFAULT 0,
 
         PRIMARY KEY (id),
-        FOREIGN KEY (author_id) REFERENCES $APPLICATION_SCHEMA.user(id),
-        FOREIGN KEY (article_id) REFERENCES $APPLICATION_SCHEMA.article(id)
+        FOREIGN KEY (authorId) REFERENCES $APPLICATION_SCHEMA.user(id),
+        FOREIGN KEY (articleId) REFERENCES $APPLICATION_SCHEMA.article(id)
     );
 
     CREATE TABLE $APPLICATION_SCHEMA.achievement (
         id SERIAL,
         name VARCHAR(32) NOT NULL,
         description VARCHAR(256) NOT NULL,
-        image_uri VARCHAR(256) NOT NULL,
+        imageUri VARCHAR(256) NOT NULL,
 
         PRIMARY KEY (id)
     );
 
     CREATE TABLE $APPLICATION_SCHEMA.achiever (
-        user_id INTEGER NOT NULL,
-        achievement_id INTEGER NOT NULL,
-        achieved_at TIMESTAMP NOT NULL DEFAULT NOW(),
+        userId INTEGER NOT NULL,
+        achievementId INTEGER NOT NULL,
+        achievedAt TIMESTAMP NOT NULL DEFAULT NOW(),
 
-        PRIMARY KEY (user_id, achievement_id),
-        FOREIGN KEY (user_id) REFERENCES $APPLICATION_SCHEMA.user(id),
-        FOREIGN KEY (achievement_id) REFERENCES $APPLICATION_SCHEMA.achievement(id)
+        PRIMARY KEY (userId, achievementId),
+        FOREIGN KEY (userId) REFERENCES $APPLICATION_SCHEMA.user(id),
+        FOREIGN KEY (achievementId) REFERENCES $APPLICATION_SCHEMA.achievement(id)
     );
 
     CREATE USER $APPLICATION_USERNAME PASSWORD '$APPLICATION_PASSWORD';
