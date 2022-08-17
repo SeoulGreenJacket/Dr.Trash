@@ -6,6 +6,7 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
 
     CREATE TABLE "$APPLICATION_SCHEMA"."user" (
         "id" SERIAL,
+        "kakaoId" INTEGER NOT NULL,
         "name" VARCHAR(32) NOT NULL,
         "thumbnail" VARCHAR(256) NOT NULL,
         "point" INTEGER NOT NULL,
@@ -13,12 +14,7 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
         PRIMARY KEY ("id")
     );
 
-    CREATE TABLE "$APPLICATION_SCHEMA"."oauth" (
-        "userId" INTEGER NOT NULL,
-        "provider" VARCHAR(32) NOT NULL,
-        "id" VARCHAR(128) NOT NULL,
-
-        PRIMARY KEY ("provider", "id")
+        PRIMARY KEY (id)
     );
 
     CREATE TABLE "$APPLICATION_SCHEMA"."trashcan" (
@@ -83,6 +79,15 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
         FOREIGN KEY ("achievementId") REFERENCES "$APPLICATION_SCHEMA"."achievement"("id")
     );
 
+    CREATE TABLE "$APPLICATION_SCHEMA"."token" (
+        "id" VARCHAR(64) NOT NULL,
+        "createdAt" TIMESTAMP NOT NULL DEFAULT NOW(),
+
+        PRIMARY KEY ("id")
+    );
+EOSQL
+
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
     CREATE USER "$APPLICATION_USERNAME" PASSWORD '$APPLICATION_PASSWORD';
 
     GRANT USAGE ON SCHEMA "$APPLICATION_SCHEMA" TO "$APPLICATION_USERNAME";
