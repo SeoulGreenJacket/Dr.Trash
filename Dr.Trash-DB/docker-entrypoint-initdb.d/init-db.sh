@@ -6,28 +6,12 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
 
     CREATE TABLE "$APPLICATION_SCHEMA"."user" (
         "id" SERIAL,
-        "kakaoId" INTEGER NOT NULL,
+        "kakaoId" BIGINT NOT NULL,
         "name" VARCHAR(32) NOT NULL,
         "thumbnail" VARCHAR(256) NOT NULL,
         "point" INTEGER NOT NULL,
 
         PRIMARY KEY ("id")
-    );
-
-        PRIMARY KEY (id)
-    );
-
-    CREATE TABLE "$APPLICATION_SCHEMA"."trashcan" (
-        "id" SERIAL,
-        "managerId" INTEGER,
-        "name" VARCHAR(32),
-        "description" VARCHAR(256),
-        "latitude" FLOAT,
-        "longitude" FLOAT,
-        "createdAt" TIMESTAMP NOT NULL DEFAULT NOW(),
-
-        PRIMARY KEY ("id"),
-        FOREIGN KEY ("managerId") REFERENCES "$APPLICATION_SCHEMA"."user"("id")
     );
 
     CREATE TABLE "$APPLICATION_SCHEMA"."article" (
@@ -60,6 +44,59 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
         FOREIGN KEY ("articleId") REFERENCES "$APPLICATION_SCHEMA"."article"("id")
     );
 
+    CREATE TABLE "$APPLICATION_SCHEMA"."token" (
+        "id" VARCHAR(64) NOT NULL,
+        "createdAt" TIMESTAMP NOT NULL DEFAULT NOW(),
+
+        PRIMARY KEY ("id")
+    );
+EOSQL
+
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
+    CREATE TABLE "$APPLICATION_SCHEMA"."trashcanCode" (
+        "code" CHAR(32) NOT NULL,
+        "createdAt" TIMESTAMP NOT NULL DEFAULT NOW(),
+
+        PRIMARY KEY ("code")
+    );
+
+    CREATE TABLE "$APPLICATION_SCHEMA"."trashcan" (
+        "id" SERIAL,
+        "code" CHAR(32) NOT NULL,
+        "managerId" INTEGER,
+        "name" VARCHAR(32),
+        "phoneNumber" CHAR(13),
+        "latitude" FLOAT,
+        "longitude" FLOAT,
+        "createdAt" TIMESTAMP NOT NULL DEFAULT NOW(),
+
+        PRIMARY KEY ("id"),
+        FOREIGN KEY ("code") REFERENCES "$APPLICATION_SCHEMA"."trashcanCode"("code"),
+        FOREIGN KEY ("managerId") REFERENCES "$APPLICATION_SCHEMA"."user"("id")
+    );
+
+    CREATE TABLE "$APPLICATION_SCHEMA"."trash" (
+        "id" SERIAL,
+        "userId" INTEGER NOT NULL,
+        "trashcanId" INTEGER NOT NULL,
+        "type" VARCHAR(32) NOT NULL,
+        "time" TIMESTAMP NOT NULL DEFAULT NOW(),
+
+        PRIMARY KEY ("id"),
+        FOREIGN KEY ("userId") REFERENCES "$APPLICATION_SCHEMA"."user"("id"),
+        FOREIGN KEY ("trashcanId") REFERENCES "$APPLICATION_SCHEMA"."trashcan"("id")
+    );
+
+    CREATE TABLE "$APPLICATION_SCHEMA"."trashcanUsage" (
+        "id" SERIAL,
+        "trashcanId" INTEGER NOT NULL,
+        "open" BOOLEAN NOT NULL,
+        "time" TIMESTAMP NOT NULL DEFAULT NOW(),
+
+        PRIMARY KEY ("id"),
+        FOREIGN KEY ("trashcanId") REFERENCES "$APPLICATION_SCHEMA"."trashcan"("id")
+    );
+
     CREATE TABLE "$APPLICATION_SCHEMA"."achievement" (
         "id" SERIAL,
         "name" VARCHAR(32) NOT NULL,
@@ -77,13 +114,6 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
         PRIMARY KEY ("userId", "achievementId"),
         FOREIGN KEY ("userId") REFERENCES "$APPLICATION_SCHEMA"."user"("id"),
         FOREIGN KEY ("achievementId") REFERENCES "$APPLICATION_SCHEMA"."achievement"("id")
-    );
-
-    CREATE TABLE "$APPLICATION_SCHEMA"."token" (
-        "id" VARCHAR(64) NOT NULL,
-        "createdAt" TIMESTAMP NOT NULL DEFAULT NOW(),
-
-        PRIMARY KEY ("id")
     );
 EOSQL
 
