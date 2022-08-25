@@ -21,6 +21,13 @@ services:
     networks:
       - default
 
+  cache:
+    image: redis:7.0.4-alpine
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - default
+
   http:
     environment:
       NODE_ENV: ${NODE_ENV}
