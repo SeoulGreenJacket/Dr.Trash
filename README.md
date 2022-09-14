@@ -40,9 +40,9 @@
 ### 배포하기
 
 ```shell
-git clone git@github.com:SeoulGreenJacket/Dr.Trash dr-trash
-cd dr-trash
-docker-compose up --build
+> git clone git@github.com:SeoulGreenJacket/Dr.Trash dr-trash
+> cd dr-trash
+> docker-compose up --build
 ```
 
 ## 🛠 Techs
@@ -62,6 +62,7 @@ docker-compose up --build
 |  <img src="https://images.velog.io/images/jonghyun3668/post/82a8c971-a21a-48ca-9c3e-a2a602b423f1/nestjs-logo.svg" width="50px" height="50px"/>  | <img src="https://www.docker.com/wp-content/uploads/2022/03/vertical-logo-monochromatic.png" width="50px" height="50px"/>  |
 
 ## 👨‍👩‍👧‍👦️ Crew
+
 <table>
     <thead>
         <tr>
