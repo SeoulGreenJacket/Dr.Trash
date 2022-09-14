@@ -2,7 +2,7 @@
 
 # 친환경 지구지키미 Dr.TRASH!
 
-### 분리수거 장면을 실시간으로 감시하고 평가해 올바른 분리수거를 유도하는 서비스입니다
+분리수거 장면을 실시간으로 감시하고 평가해 올바른 분리수거를 유도하는 서비스
 
 ## ⚡️ Features
 
@@ -21,6 +21,8 @@
 ### 준비해야 할 것들
 
 - [Dr.TRASH 하드웨어](https://github.com/SeoulGreenJacket/Dr.Trash-HW) 가 올라간 ESP-32 CAM
+- [Docker](https://github.com/docker/docker-install)
+- [Docker Compose](https://github.com/docker/compose)
 
 ### 배포하기
 
