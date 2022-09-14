@@ -3,13 +3,25 @@
 </p>
 
 <p align="center">
-    <img src="https://img.shields.io/github/issues/SeoulGreenJacket/Dr.Trash-BE?label=Backend%20Issues&style=for-the-badge">
-    <img src="https://img.shields.io/github/issues-closed/SeoulGreenJacket/Dr.Trash-BE?color=success&label=Backend%20Issues&style=for-the-badge">
-    <img src="https://img.shields.io/github/commit-activity/y/SeoulGreenJacket/Dr.Trash-BE?label=Backend%20Commit%20Activity&style=for-the-badge">
+    <a href="https://github.com/SeoulGreenJacket/Dr.Trash-BE/issues">
+        <img src="https://img.shields.io/github/issues/SeoulGreenJacket/Dr.Trash-BE?label=Backend%20Issues&style=for-the-badge">
+    </a>
+    <a href="https://github.com/SeoulGreenJacket/Dr.Trash-BE/issues?q=is%3Aissue+is%3Aclosed">
+        <img src="https://img.shields.io/github/issues-closed/SeoulGreenJacket/Dr.Trash-BE?color=success&label=Backend%20Issues&style=for-the-badge">
+    </a>
+    <a href="https://github.com/SeoulGreenJacket/Dr.Trash-BE/commits/develop">
+        <img src="https://img.shields.io/github/commit-activity/y/SeoulGreenJacket/Dr.Trash-BE?label=Backend%20Commit%20Activity&style=for-the-badge">
+    </a>
     <br>
-    <img src="https://img.shields.io/github/issues/SeoulGreenJacket/Dr.Trash-FE?label=Frontend%20Issues&style=for-the-badge">
-    <img src="https://img.shields.io/github/issues-closed/SeoulGreenJacket/Dr.Trash-FE?color=success&label=Frontend%20Issues&style=for-the-badge">
-    <img src="https://img.shields.io/github/commit-activity/y/SeoulGreenJacket/Dr.Trash-FE?label=Frontend%20Commit%20Activity&style=for-the-badge">
+    <a href="https://github.com/SeoulGreenJacket/Dr.Trash-FE/issues">
+        <img src="https://img.shields.io/github/issues/SeoulGreenJacket/Dr.Trash-FE?label=Frontend%20Issues&style=for-the-badge">
+    </a>
+    <a href="https://github.com/SeoulGreenJacket/Dr.Trash-BE/issues?q=is%3Aissue+is%3Aclosed">
+        <img src="https://img.shields.io/github/issues-closed/SeoulGreenJacket/Dr.Trash-FE?color=success&label=Frontend%20Issues&style=for-the-badge">
+    </a>
+    <a href="https://github.com/SeoulGreenJacket/Dr.Trash-FE/commits/develop">
+        <img src="https://img.shields.io/github/commit-activity/y/SeoulGreenJacket/Dr.Trash-FE?label=Frontend%20Commit%20Activity&style=for-the-badge">
+    </a>
 </p>
 
 # 친환경 지구지키미 Dr.TRASH!
