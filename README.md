@@ -71,11 +71,11 @@
             <td align="center"><a href="https://github.com/seheon99">유세헌</a></td>
         </tr>
         <tr>
-            <td><img src="https://avatars.githubusercontent.com/u/60708119?v=4" width="90px" height="90px"/></td>
-            <td><img src="https://avatars.githubusercontent.com/u/29884311?v=4" width="90px" height="90px"/></td>
-            <td><img src="https://avatars.githubusercontent.com/u/89184540?v=4" width="90px" height="90px"/></td>
-            <td><img src="https://avatars.githubusercontent.com/u/78072370?v=4" width="90px" height="90px"/></td>
-            <td><img src="https://avatars.githubusercontent.com/u/49232918?v=4" width="90px" height="90px"/></td>
+            <td><a href="https://github.com/kacel33"><img src="https://avatars.githubusercontent.com/u/60708119?v=4" width="90px" height="90px"/></a></td>
+            <td><a href="https://github.com/rlarlduf20"><img src="https://avatars.githubusercontent.com/u/29884311?v=4" width="90px" height="90px"/></a></td>
+            <td><a href="https://github.com/CWCTBOY"><img src="https://avatars.githubusercontent.com/u/89184540?v=4" width="90px" height="90px"/></a></td>
+            <td><a href="https://github.com/happyjamy"><img src="https://avatars.githubusercontent.com/u/78072370?v=4" width="90px" height="90px"/></a></td>
+            <td><a href="https://github.com/seheon99"><img src="https://avatars.githubusercontent.com/u/49232918?v=4" width="90px" height="90px"/></a></td>
         </tr>
     </tbody>
 </table>
