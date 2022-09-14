@@ -40,13 +40,9 @@
 ### 배포하기
 
 ```shell
-
-```
-
-```shell
-> git clone git@github.com:SeoulGreenJacket/Dr.Trash dr-trash
-> cd dr-trash
-> docker-compose up --build
+$ git clone git@github.com:SeoulGreenJacket/Dr.Trash dr-trash
+$ cd dr-trash
+$ docker-compose up --build
 ```
 
 ## 🛠 Techs
