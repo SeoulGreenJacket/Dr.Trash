@@ -59,11 +59,11 @@
     </thead>
     <tbody>
         <tr>
-            <td align="center">김도영</td>
-            <td align="center">김기열</td>
-            <td align="center">박인재</td>
-            <td align="center">김주환</td>
-            <td align="center">유세헌</td>
+            <td align="center"><a href="https://github.com/kacel33">김도영</a></td>
+            <td align="center"><a href="https://github.com/rlarlduf20">김기열</a></td>
+            <td align="center"><a href="https://github.com/CWCTBOY">박인재</a></td>
+            <td align="center"><a href="https://github.com/happyjamy">김주환</a></td>
+            <td align="center"><a href="https://github.com/seheon99">유세헌</a></td>
         </tr>
         <tr>
             <td><img src="https://avatars.githubusercontent.com/u/60708119?v=4" width="90px" height="90px"/></td>
