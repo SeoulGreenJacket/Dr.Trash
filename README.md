@@ -2,24 +2,44 @@
 
 # 친환경 지구지키미 Dr.TRASH!
 
-> 정확한 분리수거를 돕는 인공지능의 도움을 받아 환경을 지키고,
->
+### 분리수거 장면을 실시간으로 감시하고 평가해 올바른 분리수거를 유도하는 서비스입니다
 
 ## ⚡️ Features
 
-- 🗑 각 쓰레기통의 UUID가 담긴 QR코드를 감지하여 해당 쓰레기통에 연결합니다.
-- d
+### 인공지능을 통한 올바른 분리수거
+
+쓰레기통의 카메라로 수집한 쓰레기 버리는 모습을 인공지능에게 전송하고,
+인공지능이 종류, 라벨, 잔여물 등 쓰레기의 재활용 가치를 분석합니다.
+
+### 분리수거 포인트와 랭킹
+
+재활용 가치가 충분한 쓰레기를 버렸다면 일정 포인트가 제공되고,
+이를 통해 본인의 분리수거 등급과 랭킹을 성장시켜 재미있는 분리수거 경험을 제공합니다.
+
+## 🐳 Deploy
+
+### 준비해야 할 것들
+
+- [Dr.TRASH 하드웨어](https://github.com/SeoulGreenJacket/Dr.Trash-HW) 가 올라간 ESP-32 CAM
+
+### 배포하기
+
+```shell
+> git clone git@github.com:SeoulGreenJacket/Dr.Trash dr-trash
+> cd dr-trash
+> docker-compose up --build
+```
 
 ## 🛠 Techs
 
-### 🧑🏻‍💻 Front-End
+### 🧑🏻‍💻 Frontend
 
 |                                                             FrameWork                                                             |                                                      Platform                                                       |
 |:---------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------:|
 |                                                           React-Native                                                            |                                                         iOS                                                         |
 | <img src="https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png" width="50px" height="50px" align="center"/> | <img src="https://icon-library.com/images/ios-download-icon/ios-download-icon-14.jpg" width="50px" height="50px"/> |
 
-### 📡 Back-End
+### 📡 Backend
 
 |                                                                    FrameWork                                                                    |                                                         Server Env                                                         |
 |:-----------------------------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------:|
@@ -28,31 +48,28 @@
 
 ## 👨‍👩‍👧‍👦️ Crew
 <table>
-<thead>
-<tr>
-<th colspan="1">AI</th>
-<th colspan="2">Front-End</th>
-<th colspan="2">Back-End</th>
-</tr>
-</thead>
-<tbody>
-<t>
-<td align="center">김도영</td>
-</t>
-<t>
-<td align="center">김기열</td>
-<td align="center">박인재</td>
-</t>
-<t>
-<td align="center">김주환</td>
-<td align="center">유세헌</td>
-</t>
-<tr>
-<td></td>
-<td></td>
-<td><img src="https://avatars.githubusercontent.com/u/89184540?v=4" width="90px" height="90px"/></td>
-<td><img src="https://avatars.githubusercontent.com/u/78072370?v=4" width="90px" height="90px"/></td>
-<td><img src="https://avatars.githubusercontent.com/u/49232918?v=4" width="90px" height="90px"/></td>
-</tr>
+    <thead>
+        <tr>
+            <th colspan="1">AI</th>
+            <th colspan="2">Front-End</th>
+            <th colspan="2">Back-End</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align="center">김도영</td>
+            <td align="center">김기열</td>
+            <td align="center">박인재</td>
+            <td align="center">김주환</td>
+            <td align="center">유세헌</td>
+        </tr>
+        <tr>
+            <td><img src="https://avatars.githubusercontent.com/u/60708119?v=4" width="90px" height="90px"/></td>
+            <td><img src="https://avatars.githubusercontent.com/u/29884311?v=4" width="90px" height="90px"/></td>
+            <td><img src="https://avatars.githubusercontent.com/u/89184540?v=4" width="90px" height="90px"/></td>
+            <td><img src="https://avatars.githubusercontent.com/u/78072370?v=4" width="90px" height="90px"/></td>
+            <td><img src="https://avatars.githubusercontent.com/u/49232918?v=4" width="90px" height="90px"/></td>
+        </tr>
+    </tbody>
 </table>
 
