@@ -20,7 +20,7 @@
 
 ### 준비해야 할 것들
 
-- [Xcode로 빌드한 Dr.TRASH가  시뮬레이터 or iOS디바이스]
+- 📱 Xcode로 빌드한 Dr.TRASH가  시뮬레이터 or iOS디바이스
 - [Dr.TRASH 하드웨어](https://github.com/SeoulGreenJacket/Dr.Trash-HW) 가 올라간 ESP-32 CAM
 - [Docker](https://github.com/docker/docker-install)
 - [Docker Compose](https://github.com/docker/compose)
