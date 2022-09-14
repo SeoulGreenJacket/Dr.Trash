@@ -1,4 +1,15 @@
-![Dr.Trash Main Icon](https://github.com/SeoulGreenJacket/Dr.Trash-FE/blob/main/assets/drtrash/main_icon.png?raw=true)
+<p align="center">
+    <img src="https://github.com/SeoulGreenJacket/Dr.Trash-FE/blob/main/assets/drtrash/main_icon.png?raw=true">
+</p>
+
+<p align="center">
+    <img src="https://img.shields.io/github/issues/SeoulGreenJacket/Dr.Trash-BE?label=Backend%20Issues&style=for-the-badge">
+    <img src="https://img.shields.io/github/issues-closed/SeoulGreenJacket/Dr.Trash-BE?color=success&label=Backend%20Issues&style=for-the-badge">
+    <img src="https://img.shields.io/github/commit-activity/y/SeoulGreenJacket/Dr.Trash-BE?label=Backend%20Commit%20Activity&style=for-the-badge">
+    <img src="https://img.shields.io/github/issues/SeoulGreenJacket/Dr.Trash-FE?label=Frontend%20Issues&style=for-the-badge">
+    <img src="https://img.shields.io/github/issues-closed/SeoulGreenJacket/Dr.Trash-FE?color=success&label=Frontend%20Issues&style=for-the-badge">
+    <img src="https://img.shields.io/github/commit-activity/y/SeoulGreenJacket/Dr.Trash-FE?label=Frontend%20Commit%20Activity&style=for-the-badge">
+</p>
 
 # 친환경 지구지키미 Dr.TRASH!
 
