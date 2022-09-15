@@ -64,5 +64,15 @@ services:
     networks:
       - default
 
+  file:
+    ports:
+      - '3500:80'
+    image: nginx:latest
+    volumes:
+      - ./Dr.Trash-FILE/images:/usr/share/nginx/html/images
+      - ./Dr.Trash-FILE/videos:/usr/share/nginx/html/videos
+    networks:
+      - default
+
 volumes:
   db-data:
