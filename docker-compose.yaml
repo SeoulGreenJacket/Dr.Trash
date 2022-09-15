@@ -22,7 +22,9 @@ services:
       - default
 
   cache:
-    image: redis:7.0.4-alpine
+    ports:
+      - '4000:6379'
+    image: redis/redis-stack-server:6.2.4-v2
     volumes:
       - /etc/localtime:/etc/localtime:ro
     networks:
