@@ -100,8 +100,8 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
         "id" SERIAL,
         "userId" INTEGER NOT NULL,
         "trashcanId" INTEGER,
-        "open" BOOLEAN NOT NULL,
-        "time" TIMESTAMP NOT NULL DEFAULT NOW(),
+        "open" TIMESTAMP NOT NULL DEFAULT NOW(),
+        "close" TIMESTAMP,
 
         PRIMARY KEY ("id"),
         FOREIGN KEY ("userId") REFERENCES "$APPLICATION_SCHEMA"."user"("id")
