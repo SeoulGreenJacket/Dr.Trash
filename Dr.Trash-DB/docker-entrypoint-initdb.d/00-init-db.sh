@@ -2,7 +2,7 @@
 set -e
 
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
-    CREATE SCHEMA "$APPLICATION_SCHEMA" AUTHORIZATION postgres;
+    CREATE SCHEMA "$APPLICATION_SCHEMA" AUTHORIZATION $POSTGRES_USER;
 
     CREATE TABLE "$APPLICATION_SCHEMA"."user" (
         "id" SERIAL,
@@ -27,7 +27,7 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
 
         PRIMARY KEY ("id"),
         FOREIGN KEY ("authorId") REFERENCES "$APPLICATION_SCHEMA"."user"("id")
-            ON DELETE SET NULL;
+            ON DELETE SET NULL
     );
 
     CREATE TABLE "$APPLICATION_SCHEMA"."comment" (

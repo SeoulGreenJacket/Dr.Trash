@@ -1,6 +1,3 @@
 [submodule "Dr.Trash-BE"]
 	path = Dr.Trash-BE
 	url = git@github.com:SeoulGreenJacket/Dr.Trash-BE
-[submodule "Dr.Trash-FE"]
-	path = Dr.Trash-FE
-	url = git@github.com:SeoulGreenJacket/Dr.Trash-FE

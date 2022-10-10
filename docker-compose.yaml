@@ -3,16 +3,14 @@ version: '3.3'
 services:
   database:
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: dr_trash
-      APPLICATION_SCHEMA: application
-      APPLICATION_USERNAME: application
-      APPLICATION_PASSWORD: password
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      APPLICATION_SCHEMA: ${APPLICATION_SCHEMA}
+      APPLICATION_USERNAME: ${APPLICATION_USERNAME}
+      APPLICATION_PASSWORD: ${APPLICATION_PASSWORD}
       DEVELOPER_USERNAME: developer
       DEVELOPER_PASSWORD: password
-    ports:
-      - '5432:5432'
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - db-data:/var/lib/postgresql/data
@@ -22,8 +20,6 @@ services:
       - default
 
   cache:
-    ports:
-      - '4000:6379'
     image: redis/redis-stack-server:6.2.4-v2
     volumes:
       - /etc/localtime:/etc/localtime:ro
@@ -33,21 +29,24 @@ services:
   http:
     environment:
       NODE_ENV: ${NODE_ENV}
-      DATABASE_USER: ${DATABASE_APPLICATION_USERNAME}
+      DATABASE_USER: ${APPLICATION_USERNAME}
       DATABASE_HOST: database
-      DATABASE_NAME: ${DATABASE_NAME}
-      DATABASE_PASSWORD: password
+      DATABASE_NAME: ${POSTGRES_DB}
+      DATABASE_PASSWORD: ${APPLICATION_PASSWORD}
       DATABASE_PORT: 5432
-      DATABASE_SCHEMA: ${DATABASE_APPLICATION_SCHEMA}
+      DATABASE_SCHEMA: ${APPLICATION_SCHEMA}
       JWT_SECRET: ${JWT_SECRET}
-      JWT_ACCESS_EXPIRES_IN: 20m
-      JWT_REFRESH_EXPIRES_IN: 2h
+      JWT_ACCESS_EXPIRES_IN: ${JWT_ACCESS_EXPIRES_IN}
+      JWT_REFRESH_EXPIRES_IN: ${JWT_REFRESH_EXPIRES_IN}
       KAKAO_CLIENT_ID: ${KAKAO_CLIENT_ID}
       KAKAO_CALLBACK_URL: ${KAKAO_CALLBACK_URL}
       REDIS_HOST: cache
       REDIS_PORT: 6379
     ports:
-      - '3000:3000'
+      - target: 3000
+        published: ${BACKEND_PORT}
+        protocol: tcp
+        mode: host
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./Dr.Trash-BE/src:/app/src:ro
@@ -56,22 +55,12 @@ services:
     networks:
       - default
 
-  amqp:
-    ports:
-      - '1883:1883'
-      - '5672:5672'
-      - '15672:15672'
-      - '15675:15675'
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-    build:
-      context: ./Dr.Trash-AMQP
-    networks:
-      - default
-
   file:
     ports:
-      - '3500:80'
+      - target: 80
+        published: ${STORAGE_PORT}
+        protocol: tcp
+        mode: host
     image: nginx:latest
     volumes:
       - ./Dr.Trash-FILE/images:/usr/share/nginx/html/images
