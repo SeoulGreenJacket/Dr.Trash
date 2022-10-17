@@ -83,17 +83,11 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
 
     CREATE TABLE "$APPLICATION_SCHEMA"."trash" (
         "id" SERIAL,
-        "userId" INTEGER NOT NULL,
-        "trashcanId" INTEGER,
+        "code" CHAR(36) NOT NULL,
         "type" VARCHAR(32) NOT NULL,
         "at" TIMESTAMP NOT NULL DEFAULT NOW(),
-        "ok" BOOLEAN NOT NULL DEFAULT FALSE,
 
         PRIMARY KEY ("id"),
-        FOREIGN KEY ("userId") REFERENCES "$APPLICATION_SCHEMA"."user"("id")
-            ON DELETE CASCADE,
-        FOREIGN KEY ("trashcanId") REFERENCES "$APPLICATION_SCHEMA"."trashcan"("id")
-            ON DELETE SET NULL
     );
 
     CREATE TABLE "$APPLICATION_SCHEMA"."trashcanUsage" (
