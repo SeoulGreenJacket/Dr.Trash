@@ -1,3 +1,6 @@
 [submodule "Dr.Trash-BE"]
 	path = Dr.Trash-BE
 	url = git@github.com:SeoulGreenJacket/Dr.Trash-BE
+[submodule "Dr.Trash-AI"]
+	path = Dr.Trash-AI
+	url = git@github.com:SeoulGreenJacket/Dr.Trash-AI.git
