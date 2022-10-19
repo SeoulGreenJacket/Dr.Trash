@@ -57,6 +57,8 @@ services:
       KAKAO_CALLBACK_URL: ${KAKAO_CALLBACK_URL}
       REDIS_HOST: cache
       REDIS_PORT: 6379
+      KAFKA_HOST: kafka
+      KAFKA_PORT: 9092
     ports:
       - target: 3000
         published: ${BACKEND_PORT}
