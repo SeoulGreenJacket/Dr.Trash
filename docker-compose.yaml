@@ -1,21 +1,6 @@
 version: '3.3'
 
 services:
-  ai:
-    environment:
-      DB_HOST: database
-      DB_PORT: 5432
-      DB_NAME: ${POSTGRES_DB}
-      DB_SCHEMA: ${APPLICATION_SCHEMA}
-      DB_USERNAME: ${APPLICATION_USERNAME}
-      DB_PASSWORD: ${APPLICATION_PASSWORD}
-      KAFKA_HOST: kafka
-      KAFKA_PORT: 9092
-    build:
-      context: ./Dr.Trash-AI
-    networks:
-      - default
-
   database:
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
@@ -59,6 +44,7 @@ services:
       REDIS_PORT: 6379
       KAFKA_HOST: kafka
       KAFKA_PORT: 9092
+      KAFKA_TOPIC_TRACKER: ${KAFKA_TOPIC_TRACKER}
     ports:
       - target: 3000
         published: ${BACKEND_PORT}
@@ -74,6 +60,7 @@ services:
     depends_on:
       - database
       - cache
+      - kafka
 
   file:
     ports:

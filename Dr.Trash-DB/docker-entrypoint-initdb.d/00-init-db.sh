@@ -19,11 +19,9 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
         "authorId" INTEGER NOT NULL,
         "title" VARCHAR(32) NOT NULL,
         "content" VARCHAR(1024) NOT NULL,
-        "likeCount" INTEGER NOT NULL DEFAULT 0,
         "viewCount" INTEGER NOT NULL DEFAULT 0,
-        "hateCount" INTEGER NOT NULL DEFAULT 0,
-        "createdAt" TIMESTAMP NOT NULL DEFAULT NOW(),
-        "updatedAt" TIMESTAMP NOT NULL DEFAULT NOW(),
+        "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+        "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
 
         PRIMARY KEY ("id"),
         FOREIGN KEY ("authorId") REFERENCES "$APPLICATION_SCHEMA"."user"("id")
@@ -35,8 +33,8 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
         "authorId" INTEGER,
         "articleId" INTEGER NOT NULL,
         "content" VARCHAR(1024) NOT NULL,
-        "createdAt" TIMESTAMP NOT NULL DEFAULT NOW(),
-        "updatedAt" TIMESTAMP NOT NULL DEFAULT NOW(),
+        "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+        "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
         "likeCount" INTEGER NOT NULL DEFAULT 0,
         "hateCount" INTEGER NOT NULL DEFAULT 0,
 
@@ -49,7 +47,7 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
 
     CREATE TABLE "$APPLICATION_SCHEMA"."token" (
         "id" VARCHAR(64) NOT NULL,
-        "createdAt" TIMESTAMP NOT NULL DEFAULT NOW(),
+        "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
 
         PRIMARY KEY ("id")
     );
@@ -58,7 +56,7 @@ EOSQL
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
     CREATE TABLE "$APPLICATION_SCHEMA"."trashcanCode" (
         "code" CHAR(36) NOT NULL,
-        "createdAt" TIMESTAMP NOT NULL DEFAULT NOW(),
+        "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
 
         PRIMARY KEY ("code")
     );
@@ -68,11 +66,12 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
         "code" CHAR(36) NOT NULL,
         "managerId" INTEGER,
         "name" VARCHAR(32),
+        "type" VARCHAR(32) NOT NULL,
         "phoneNumber" CHAR(13),
         "latitude" FLOAT,
         "longitude" FLOAT,
-        "createdAt" TIMESTAMP NOT NULL DEFAULT NOW(),
-        "updatedAt" TIMESTAMP NOT NULL DEFAULT NOW(),
+        "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+        "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
 
         PRIMARY KEY ("id"),
         FOREIGN KEY ("code") REFERENCES "$APPLICATION_SCHEMA"."trashcanCode"("code")
@@ -81,26 +80,28 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
             ON DELETE CASCADE
     );
 
-    CREATE TABLE "$APPLICATION_SCHEMA"."trash" (
-        "id" SERIAL,
-        "code" CHAR(36) NOT NULL,
-        "type" VARCHAR(32) NOT NULL,
-        "at" TIMESTAMP NOT NULL DEFAULT NOW(),
-
-        PRIMARY KEY ("id"),
-    );
-
     CREATE TABLE "$APPLICATION_SCHEMA"."trashcanUsage" (
         "id" SERIAL,
         "userId" INTEGER NOT NULL,
         "trashcanId" INTEGER,
-        "open" TIMESTAMP NOT NULL DEFAULT NOW(),
-        "close" TIMESTAMP,
+        "beginAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+        "endAt" TIMESTAMP WITH TIME ZONE,
 
         PRIMARY KEY ("id"),
         FOREIGN KEY ("userId") REFERENCES "$APPLICATION_SCHEMA"."user"("id")
             ON DELETE CASCADE,
         FOREIGN KEY ("trashcanId") REFERENCES "$APPLICATION_SCHEMA"."trashcan"("id")
+            ON DELETE SET NULL
+    );
+
+    CREATE TABLE "$APPLICATION_SCHEMA"."trash" (
+        "id" SERIAL,
+        "usageId" INTEGER,
+        "type" VARCHAR(32) NOT NULL,
+        "at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+
+        PRIMARY KEY ("id"),
+        FOREIGN KEY ("usageId") REFERENCES "$APPLICATION_SCHEMA"."trashcanUsage"("id")
             ON DELETE SET NULL
     );
 
@@ -116,7 +117,7 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
     CREATE TABLE "$APPLICATION_SCHEMA"."achiever" (
         "userId" INTEGER NOT NULL,
         "achievementId" INTEGER NOT NULL,
-        "achievedAt" TIMESTAMP NOT NULL DEFAULT NOW(),
+        "achievedAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
 
         PRIMARY KEY ("userId", "achievementId"),
         FOREIGN KEY ("userId") REFERENCES "$APPLICATION_SCHEMA"."user"("id")
