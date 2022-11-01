@@ -2,6 +2,13 @@
 set -e
 
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
+    INSERT INTO "application"."user"("kakaoId","name","thumbnail","point") VALUES
+        ('1234567890','김철수','https://ibb.co/8KYZ0RK',0),
+        ('0987654321','이영희','https://ibb.co/VvKzCQk',300),
+        ('1234567891','박철수','https://ibb.co/mTKK422',100),
+        ('0987654322','최영희','https://ibb.co/jJ89SSG',200),
+        ('0981233321','임영웅','https://ibb.co/HqPNfvj',500);
+
     INSERT INTO "application"."article"("authorId", "title", "content", "viewCount") VALUES
         ('1','안녕하세요','안녕하세요. 가입 했습니다~ 다들 쓰레기 분리수거 잘해서 환경을 지켜봅시다!!',2),
         ('2','까다롭네요ㅠㅠ','쓰레기 분리수거 법이 은근 까다롭네요ㅠㅠ 너무 어려워요 그래도 닥터트래쉬 덕에 도움 많이 받았습니다~~',5),
