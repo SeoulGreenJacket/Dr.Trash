@@ -2,12 +2,14 @@
 set -e
 
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
+    INSERT INTO "application"."trashcanCode" ("code") VALUES ('ddcd8c24-4fe4-4f87-b197-da65ab63f17f');
+
     INSERT INTO "application"."user"("kakaoId","name","thumbnail","point") VALUES
-        ('1234567890','김철수','https://ibb.co/8KYZ0RK',0),
-        ('0987654321','이영희','https://ibb.co/VvKzCQk',300),
-        ('1234567891','박철수','https://ibb.co/mTKK422',100),
-        ('0987654322','최영희','https://ibb.co/jJ89SSG',200),
-        ('0981233321','임영웅','https://ibb.co/HqPNfvj',500);
+        ('1234567890','김철수','https://i.ibb.co/PmDHNbm/2022-07-28-9-10-53.png',0),
+        ('0987654321','이영희','https://i.ibb.co/y83ZkYx/Kakao-Talk-20221031-230253693.jpg',300),
+        ('1234567891','박철수','https://i.ibb.co/vqWWkTT/image.jpg',100),
+        ('0987654322','최영희','https://i.ibb.co/0snpxxZ/images.jpg',200),
+        ('0981233321','임영웅','https://i.ibb.co/pdKWBDS/5109431-agi-Laci-MHn-1659098198501.jpg',500);
 
     INSERT INTO "application"."article"("authorId", "title", "content", "viewCount") VALUES
         ('1','안녕하세요','안녕하세요. 가입 했습니다~ 다들 쓰레기 분리수거 잘해서 환경을 지켜봅시다!!',2),
