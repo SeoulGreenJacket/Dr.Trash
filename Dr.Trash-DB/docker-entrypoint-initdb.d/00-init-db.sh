@@ -84,6 +84,7 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
         "id" SERIAL,
         "userId" INTEGER NOT NULL,
         "trashcanId" INTEGER,
+        "trashcanType" VARCHAR(32) NOT NULL,
         "beforePoint" INTEGER NOT NULL,
         "beginAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
         "endAt" TIMESTAMP WITH TIME ZONE,
